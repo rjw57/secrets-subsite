@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Send Rich Secrets</title>
+    <link rel="stylesheet" href="vendor/foundation/foundation.min.css">
+  </head>
+  <body class="js-loading">
+    <div class="grid-container">
+      <div class="grid-x grid-margin-x">
+        <section class="cell">
+          <h1>Send Rich Secrets</h1>
+          <p class="lead">
+            This application allows you to easily send secret, confidential or sensitive information
+            to Rich in a secure manner in three easy steps.
+          </p>
+        </section>
+
+        <section class="cell">
+          <h2 class="h3">Select recipients</h2>
+          <p>
+            Which identities should be able to decrypt this secret? If you're not sure, leave all of
+            them selected. <em>Hint: use the Ctrl or Option key to select multiple recipients.</em>
+          </p>
+          <select id="key-select" name="keys" multiple>
+          </select>
+          <div class="button-group">
+            <button id="key-select-all" type="button" class="button primary">Select all</button>
+            <button id="key-select-none" type="button" class="button secondary">Clear selection</button>
+          </div>
+        </section>
+
+        <section class="cell large-6">
+          <h2 class="h3">Add secret content</h2>
+          <p>
+            Content added to the text area below is encrypted on the local machine. It is
+            <em>not</em> sent over the Internet. You can ensure this by disabling networking before
+            adding the secret.
+          </p>
+          <textarea id="file-contents" name="contents" rows="12" cols="80" placeholder="Paste file content here.">
+          </textarea>
+        </section>
+
+        <section class="cell large-6">
+          <h2 class="h3">Send me the encrypted result</h2>
+          <p>
+            Copy the encrypted content below and send it to me. It is safe to send the encrypted
+            content over an insecure channel such as email, instant message or Slack.
+          </p>
+          <textarea id="armoured-result" class="code-block" readonly name="result" rows="8" cols="80"></textarea>
+          <div class="grid-x grid-margin-x align-middle">
+            <div class="cell shrink">
+              <button id="copy-result" type="button" class="button primary" style="margin: 0px;">Copy to clipboard</button>
+            </div>
+            <div class="cell auto text-right">
+              <span id="copy-confirm"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="cell">
+          <h2 class="h3">Advanced users</h2>
+          <p>
+            If you are comfortable using <a href="https://gnupg.org/">GPG</A> to encrypt files, you
+            can always download a
+            <a download href="./downloads/rich-wareham-public-keyring.gpg">
+              keyring containing my public keys
+            </a>.
+          </p>
+        </section>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initialise } from "./js/encrypt.js";
+      await initialise();
+      document.body.classList.remove("js-loading");
+      document.body.classList.add("js-loaded");
+    </script>
+  </body>
+</html>

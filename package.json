@@ -1,0 +1,27 @@
+{
+  "name": "secrets-subsite",
+  "version": "1.0.0",
+  "description": "Sub-site to send Rich secrets",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rjw57/secrets-subsite.git"
+  },
+  "author": "Rich Wareham <rich.secrets@richwareham.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rjw57/secrets-subsite/issues"
+  },
+  "homepage": "https://github.com/rjw57/secrets-subsite#readme",
+  "devDependencies": {
+    "eslint": "^8.14.0",
+    "typescript": "^4.6.4",
+    "typescript-language-server": "^0.9.7"
+  }
+}
