@@ -2,80 +2,108 @@
 <html>
   <head>
     <title>Send Rich Secrets</title>
-    <link rel="stylesheet" href="vendor/foundation/foundation.min.css">
+    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+    <style>
+      #copy-confirm { display: none; visibility: hidden; }
+      #copy-confirm.copied { display: inline-block; visibility: visible; }
+    </style>
   </head>
   <body class="js-loading">
-    <div class="grid-container">
-      <div class="grid-x grid-margin-x">
-        <section class="cell">
-          <h1>Send Rich Secrets</h1>
-          <p class="lead">
-            This application allows you to send secret, confidential or sensitive information to me
-            in a secure manner in three easy steps.
-          </p>
-        </section>
+    <section class="container">
+      <h1 class="display-1">Send Rich Secrets</h1>
 
-        <section class="cell">
-          <h2 class="h3">Select identies</h2>
-          <p>
-            Which identities should be able to decrypt this secret? If you're not sure, leave all of
-            them selected.
-          </p>
-          <select id="key-select" name="keys" multiple>
-          </select>
-          <p>
-            <em>Hint: use the Ctrl or Option key to select multiple recipients.</em>
-          </p>
-          <div class="button-group">
-            <button id="key-select-all" type="button" class="button primary">Select all</button>
-            <button id="key-select-none" type="button" class="button secondary">Clear selection</button>
-          </div>
-        </section>
+      <p class="lead">
+        This application allows you to send secret, confidential or sensitive information to me
+        in a secure manner in three easy steps.
+      </p>
 
-        <section class="cell large-6">
-          <h2 class="h3">Add secret content</h2>
-          <p>
-            Content added to the text area below is encrypted on the local machine. It is
-            <em>not</em> sent over the Internet. You can ensure this by disabling networking before
-            adding the secret.
-          </p>
-          <textarea id="file-contents" name="contents" rows="12" cols="80" placeholder="Paste file content here.">
-          </textarea>
-        </section>
+      <h2>Add secret content</h2>
 
-        <section class="cell large-6">
-          <h2 class="h3">Send me the encrypted result</h2>
-          <p>
-            Copy the encrypted content below and send it to me. It is safe to send the encrypted
-            content over an insecure channel such as email, instant message or Slack.
-          </p>
-          <textarea id="armoured-result" class="code-block" readonly name="result" rows="8" cols="80"></textarea>
-          <div class="grid-x grid-margin-x align-middle">
-            <div class="cell shrink">
-              <button id="copy-result" type="button" class="button primary" style="margin: 0px;">Copy to clipboard</button>
+      <p>
+        Write or paste the secret content into the text area below. Encryption happens entirely on
+        your device; content is not sent over the Internet. If you want to make sure of this,
+        disable your network connection before adding the secret content.
+      </p>
+
+      <p>
+        <textarea
+          id="file-contents" name="contents" rows="8" cols="80" placeholder="Add secret content here."
+          class="form-control"
+        ></textarea>
+      </p>
+
+      <div class="accordion" id="select-recipients-accordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="select-recipients-header">
+            <button
+              class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#select-recipients" aria-expanded="false"
+              aria-controls="select-recipients"
+            >
+              Advanced users: select recipient identities
+            </button>
+          </h2>
+
+          <div
+            id="select-recipients" class="accordion-collapse collapse"
+            aria-labelledby="select-recipients-header" data-bs-parent="#select-recipients-accordion"
+          >
+            <div class="accordion-body">
+              <p>
+                Which identities should be able to decrypt this secret? If you're not sure, leave all of
+                them selected.
+              </p>
+              <select class="form-control" id="key-select" name="keys" multiple>
+              </select>
+              <p>
+                <small class="text-muted">
+                  Hint: use the Ctrl or Option key to select multiple recipients.
+                </small>
+              </p>
+              <div class="button-group">
+                <button id="key-select-all" type="button" class="btn btn-primary">Select all</button>
+                <button id="key-select-none" type="button" class="btn btn-secondary">Clear selection</button>
+              </div>
             </div>
-            <div class="cell auto text-right">
-              <span id="copy-confirm"></span>
-            </div>
           </div>
-        </section>
-
-        <section class="cell">
-          <h2 class="h3">Advanced users</h2>
-          <p>
-            If you are comfortable using <a href="https://gnupg.org/">GPG</A> to encrypt files, you
-            can always download a
-            <a download href="./downloads/rich-wareham-public-keyring.gpg">keyring containing my
-            public keys</a>.
-          </p>
-          <p>
-            The <a href="https://github.com/rjw57/secrets-subsite/">source code</a> for this
-            application is publicly available.
-          </p>
-        </section>
+        </div>
       </div>
-    </div>
 
+      <h2 class="mt-4">Send me the encrypted result</h2>
+
+      <p>
+        Copy the encrypted content below and send it to me. It is safe to send the encrypted
+        content over an insecure channel such as email, instant message or Slack.
+      </p>
+
+      <p>
+        <textarea
+            id="armoured-result" readonly name="result" rows="8" cols="80"
+            class="form-control font-monospace"
+        ></textarea>
+      </p>
+
+      <div>
+        <button id="copy-result" type="button" class="align-baseline btn btn-primary">Copy to clipboard</button>
+        <span id="copy-confirm" class="align-baseline text-success ms-4">
+          Copied to clipboard.
+        </span>
+      </div>
+
+      <h2 class="mt-4">Advanced users</h2>
+      <p>
+        If you are comfortable using <a href="https://gnupg.org/">GPG</A> to encrypt files, you
+        can always download a
+        <a download href="./downloads/rich-wareham-public-keyring.gpg">keyring containing my
+        public keys</a>.
+      </p>
+      <p>
+        The <a href="https://github.com/rjw57/secrets-subsite/">source code</a> for this application
+        is publicly available.
+      </p>
+    </section>
+
+    <script src="vendor/bootstrap/bootstrap.bundle.min.js"></script>
     <script type="module">
       import { initialise } from "./js/encrypt.js";
       await initialise();

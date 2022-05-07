@@ -29,7 +29,9 @@ export const initialise = async () => {
   // Clear result and contents elements.
   resultElement.value = "";
   contentsElement.value = "";
-  copyConfirmElement.textContent = "";
+  if(copyConfirmElement) {
+    copyConfirmElement.classList.remove("copied");
+  }
 
   // Update the result given the content.
   const updateResult = async () => {
@@ -45,12 +47,14 @@ export const initialise = async () => {
     // Clear the result element, placeholder and copy confirmation.
     resultElement.value = "";
     resultElement.setAttribute("placeholder", "");
-    copyConfirmElement.textContent = "";
+    if(copyConfirmElement) {
+      copyConfirmElement.classList.remove("copied");
+    }
 
     if(encryptionKeys.length === 0) {
       resultElement.setAttribute("placeholder", "Select at least one recipient.");
     } else if(contentsElement.value.length === 0) {
-      resultElement.setAttribute("placeholder", "Send me the encrypted contents that appear here.");
+      resultElement.setAttribute("placeholder", "The encrypted secret will appear here.");
     } else {
       const message = await openpgp.createMessage({
         text: contentsElement.value,
@@ -80,7 +84,9 @@ export const initialise = async () => {
   // Add event listeners for copy.
   document.getElementById("copy-result").addEventListener("click", async () => {
     await navigator.clipboard.writeText(resultElement.value);
-    copyConfirmElement.textContent = "Successfully copied to clipboard";
+    if(copyConfirmElement) {
+      copyConfirmElement.classList.add("copied");
+    }
   });
 
   // Perform an initial update.
