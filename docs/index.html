@@ -9,27 +9,49 @@
     </style>
   </head>
   <body class="js-loading">
+    <header class="bg-light border-bottom mb-4">
+      <div class="container">
+        <h1 class="display-2">Send Me Secrets</h1>
+
+        <p class="lead">
+          This applications helps you send secret, confidential or sensitive information to me in a
+          secure manner.
+        </p>
+      </div>
+    </header>
+
     <section class="container">
-      <h1 class="display-1">Send Rich Secrets</h1>
+      <div class="row gy-4">
+        <div class="col-12 col-lg-6">
+          <h2 class="h5">Add secret content</h2>
 
-      <p class="lead">
-        This application allows you to send secret, confidential or sensitive information to me
-        in a secure manner in three easy steps.
-      </p>
+          <textarea
+            id="file-contents" name="contents" rows="8" cols="80" placeholder="Add secret content here."
+            class="form-control mb-2"
+          ></textarea>
+        </div>
+        <div class="col-12 col-lg-6">
+          <h2 class="h5">Send me the encrypted result</h2>
 
-      <h2>Add secret content</h2>
+          <textarea
+              id="armoured-result" readonly name="result" rows="8" cols="80"
+              class="form-control font-monospace mb-2"
+          ></textarea>
 
-      <p>
-        Write or paste the secret content into the text area below. Encryption happens entirely on
-        your device; content is not sent over the Internet. If you want to make sure of this,
-        disable your network connection before adding the secret content.
-      </p>
+          <div>
+            <button id="copy-result" type="button" class="align-baseline btn btn-primary">Copy to clipboard</button>
+            <span id="copy-confirm" class="align-baseline text-success ms-4">
+              Copied to clipboard.
+            </span>
+          </div>
+        </div>
+      </div>
 
-      <p>
-        <textarea
-          id="file-contents" name="contents" rows="8" cols="80" placeholder="Add secret content here."
-          class="form-control"
-        ></textarea>
+      <p class="mt-4 text-muted">
+        Encryption happens entirely on your device; content is not sent over the Internet. If you
+        want to make sure of this, disable your network connection before adding the secret content.
+        It is safe to send encrypted content over an insecure channel such as email, instant
+        messaging or Slack.
       </p>
 
       <div class="accordion" id="select-recipients-accordion">
@@ -40,7 +62,7 @@
               data-bs-target="#select-recipients" aria-expanded="false"
               aria-controls="select-recipients"
             >
-              Advanced users: select recipient identities
+              Advanced users
             </button>
           </h2>
 
@@ -49,6 +71,8 @@
             aria-labelledby="select-recipients-header" data-bs-parent="#select-recipients-accordion"
           >
             <div class="accordion-body">
+              <h3 class="h5">Select recipient identities</h3>
+
               <p>
                 Which identities should be able to decrypt this secret? If you're not sure, leave all of
                 them selected.
@@ -64,49 +88,38 @@
                 <button id="key-select-all" type="button" class="btn btn-primary">Select all</button>
                 <button id="key-select-none" type="button" class="btn btn-secondary">Clear selection</button>
               </div>
+
+              <h3 class="h5 mt-4">Download public keyring</h3>
+
+              <p>
+                If you are comfortable using <a href="https://gnupg.org/">GPG</A> to encrypt files, you
+                can always download a
+                <a download href="./downloads/rich-wareham-public-keyring.gpg">keyring containing my
+                public keys</a>.
+              </p>
             </div>
           </div>
         </div>
       </div>
-
-      <h2 class="mt-4">Send me the encrypted result</h2>
-
-      <p>
-        Copy the encrypted content below and send it to me. It is safe to send the encrypted
-        content over an insecure channel such as email, instant message or Slack.
-      </p>
-
-      <p>
-        <textarea
-            id="armoured-result" readonly name="result" rows="8" cols="80"
-            class="form-control font-monospace"
-        ></textarea>
-      </p>
-
-      <div>
-        <button id="copy-result" type="button" class="align-baseline btn btn-primary">Copy to clipboard</button>
-        <span id="copy-confirm" class="align-baseline text-success ms-4">
-          Copied to clipboard.
-        </span>
-      </div>
-
-      <h2 class="mt-4">Advanced users</h2>
-      <p>
-        If you are comfortable using <a href="https://gnupg.org/">GPG</A> to encrypt files, you
-        can always download a
-        <a download href="./downloads/rich-wareham-public-keyring.gpg">keyring containing my
-        public keys</a>.
-      </p>
-      <p>
-        The <a href="https://github.com/rjw57/secrets-subsite/">source code</a> for this application
-        is publicly available.
-      </p>
     </section>
+
+    <div class="container">
+      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+        <div class="col-auto text-muted">
+          &copy; <span id="this-year">2022</span> Rich Wareham
+        </div>
+        <ul class="nav col justify-content-end">
+          <li class="nav-item"><a href="https://github.com/rjw57/secrets-subsite/" class="nav-link
+              px-2 text-muted">Source code</a></li>
+        </ul>
+      </footer>
+    </div>
 
     <script src="vendor/bootstrap/bootstrap.bundle.min.js"></script>
     <script type="module">
       import { initialise } from "./js/encrypt.js";
       await initialise();
+      document.getElementById("this-year").innerText = `${new Date().getFullYear()}`;
       document.body.classList.remove("js-loading");
       document.body.classList.add("js-loaded");
     </script>
