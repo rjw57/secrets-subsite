@@ -24,14 +24,13 @@ export const initialise = async () => {
 
   const contentsElement = document.getElementById("file-contents");
   const resultElement = document.getElementById("armoured-result");
-  const copyConfirmElement = document.getElementById("copy-confirm");
+  const copyButtonElement = document.getElementById("copy-result");
 
   // Clear result and contents elements.
   resultElement.value = "";
   contentsElement.value = "";
-  if(copyConfirmElement) {
-    copyConfirmElement.classList.remove("copied");
-  }
+  copyButtonElement.disabled = true;
+  copyButtonElement.innerText = "Copy";
 
   // Update the result given the content.
   const updateResult = async () => {
@@ -47,9 +46,8 @@ export const initialise = async () => {
     // Clear the result element, placeholder and copy confirmation.
     resultElement.value = "";
     resultElement.setAttribute("placeholder", "");
-    if(copyConfirmElement) {
-      copyConfirmElement.classList.remove("copied");
-    }
+    copyButtonElement.disabled = true;
+    copyButtonElement.innerText = "Copy";
 
     if(encryptionKeys.length === 0) {
       resultElement.setAttribute("placeholder", "Select at least one recipient.");
@@ -64,6 +62,7 @@ export const initialise = async () => {
         encryptionKeys,
       });
       resultElement.value = result;
+      copyButtonElement.disabled = false;
     }
   };
 
@@ -84,9 +83,7 @@ export const initialise = async () => {
   // Add event listeners for copy.
   document.getElementById("copy-result").addEventListener("click", async () => {
     await navigator.clipboard.writeText(resultElement.value);
-    if(copyConfirmElement) {
-      copyConfirmElement.classList.add("copied");
-    }
+    copyButtonElement.innerText = "Copied";
   });
 
   // Perform an initial update.

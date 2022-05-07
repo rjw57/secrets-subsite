@@ -4,51 +4,50 @@
     <title>Send Rich Secrets</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
-    <style>
-      #copy-confirm { display: none; visibility: hidden; }
-      #copy-confirm.copied { display: inline-block; visibility: visible; }
-    </style>
+    <link rel="stylesheet" href="css/main.css">
   </head>
   <body class="js-loading">
-    <header class="bg-light border-bottom mb-4">
+    <header class="bg-light border-bottom mb-4 pt-4 pb-2">
       <div class="container">
         <h1 class="display-2">Send Me Secrets</h1>
 
         <p class="lead">
-          This applications helps you send secret, confidential or sensitive information to me in a
+          This application helps you send secret, confidential or sensitive information to me in a
           secure manner.
         </p>
       </div>
     </header>
 
     <section class="container">
-      <div class="row gy-4">
+      <div class="row gy-2 gx-4">
         <div class="col-12 col-lg-6">
           <h2 class="h5">Add secret content</h2>
 
           <textarea
-            id="file-contents" name="contents" rows="8" cols="80" placeholder="Add secret content here."
-            class="form-control mb-2"
+            id="file-contents" name="contents" rows="8" cols="80"
+            placeholder="Paste secret content here."
+            class="form-control font-monospace mb-2"
           ></textarea>
         </div>
         <div class="col-12 col-lg-6">
           <h2 class="h5">Send me the encrypted result</h2>
 
-          <textarea
-              id="armoured-result" readonly name="result" rows="8" cols="80"
-              class="form-control font-monospace mb-2"
-          ></textarea>
-
-          <div>
-            <button id="copy-result" type="button" class="align-baseline btn btn-primary">Copy to clipboard</button>
-            <span id="copy-confirm" class="align-baseline text-success ms-4">
-              Copied to clipboard.
-            </span>
+          <div class="clipboard-container">
+            <button
+              id="copy-result" type="button" disabled
+              class="btn btn-clipboard btn-primary btn-small"
+            >
+              Copy
+            </button>
           </div>
+          <textarea
+            id="armoured-result" readonly name="result" rows="8" cols="80"
+            class="form-control font-monospace mb-2"
+          ></textarea>
         </div>
       </div>
 
-      <p class="mt-4 text-muted">
+      <p class="text-muted hint">
         Encryption happens entirely on your device; content is not sent over the Internet. If you
         want to make sure of this, disable your network connection before adding the secret content.
         It is safe to send encrypted content over an insecure channel such as email, instant
@@ -71,7 +70,7 @@
             id="select-recipients" class="accordion-collapse collapse"
             aria-labelledby="select-recipients-header" data-bs-parent="#select-recipients-accordion"
           >
-            <div class="accordion-body">
+            <div class="accordion-body pb-0">
               <h3 class="h5">Select recipient identities</h3>
 
               <p>
@@ -104,16 +103,18 @@
       </div>
     </section>
 
-    <div class="container">
-      <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-        <div class="col-auto text-muted">
-          &copy; <span id="this-year">2022</span> Rich Wareham
-        </div>
-        <ul class="nav col justify-content-end">
-          <li class="nav-item"><a href="https://github.com/rjw57/secrets-subsite/" class="nav-link
-              px-2 text-muted">Source code</a></li>
-        </ul>
-      </footer>
+    <div class="border-top mt-4">
+      <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3">
+          <div class="col-auto text-muted">
+            &copy; <span id="this-year">2022</span> Rich Wareham
+          </div>
+          <ul class="nav col justify-content-end">
+            <li class="nav-item"><a href="https://github.com/rjw57/secrets-subsite/" class="nav-link
+                px-2 text-muted">Source code</a></li>
+          </ul>
+        </footer>
+      </div>
     </div>
 
     <script src="vendor/bootstrap/bootstrap.bundle.min.js"></script>
