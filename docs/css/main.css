@@ -35,7 +35,7 @@ body.js-loaded > #loading-overlay {
   animation-fill-mode: both;
   animation-timing-function: ease-in;
   background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
