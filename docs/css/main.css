@@ -21,3 +21,38 @@
 footer {
   font-size: .9em;
 }
+
+/* Loading/error indicator. */
+body.js-loaded > #loading-overlay {
+  display: none;
+}
+
+#loading-overlay {
+  z-index: 2000;
+  animation-name: fade-in;
+  animation-duration: 0.25s;
+  animation-delay: 1s;
+  animation-fill-mode: both;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#loading-overlay > #problem-dialog {
+  position: absolute;
+  animation-name: fade-in;
+  animation-duration: 0.25s;
+  animation-delay: 5s;
+  animation-fill-mode: both;
+}
+
+@keyframes fade-in {
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
