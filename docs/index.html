@@ -4,152 +4,122 @@
     <title>Send Me Secrets</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="img/favicon.png">
-    <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="vendor/pico/pico.min.css">
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body class="js-loading">
-    <header class="bg-light border-bottom mb-4 pt-4 pb-2">
-      <div class="container">
-        <h1 class="display-2">Send Me Secrets</h1>
-
-        <p class="lead">
+    <main class="container">
+      <hgroup>
+        <h1>Send Me Secrets</h1>
+        <h2>
           This application helps you send secret, confidential or sensitive information to me in a
           secure manner.
+        </h2>
+      </hgroup>
+
+      <section>
+        <div class="grid">
+          <div>
+            <label for="file-contents">
+              Add secret content
+            </label>
+
+            <textarea
+              id="file-contents" name="contents" rows="8" cols="80"
+              placeholder="Paste secret content here."
+            ></textarea>
+          </div>
+
+          <div>
+            <label for="armoured-result">
+              Send me the encrypted result
+            </label>
+
+            <div class="clipboard-container">
+              <button id="copy-result" type="button" disabled class="clipboard-button">
+                Copy
+              </button>
+            </div>
+
+            <textarea
+              id="armoured-result" readonly name="result" rows="8" cols="80"
+              placeholder="The encrypted secret will appear here."
+            ></textarea>
+          </div>
+        </div>
+
+        <details>
+          <summary>Options for advanced users</summary>
+
+          <label for="key-selec">
+            Recipient identities
+          </label>
+          <select id="key-select" name="keys" multiple></select>
+
+          <small>
+            Only these identities will be able to decrypt this secret. If you're not sure, leave all
+            of them selected. Use the Ctrl or Option keys to select multiple recipients.
+          </small>
+
+          <div class="button-group">
+            <button id="key-select-all" type="button">Select all</button>
+            <button id="key-select-none" type="button" class="secondary">Clear selection</button>
+          </div>
+        </details>
+
+        <p class="muted">
+          <small>
+            It is safe to send encrypted content over an insecure channel such as email, instant
+            messaging or Slack. Encryption happens entirely on your device; content is not sent over the
+            Internet. If you want to make sure of this, disable your network connection before adding
+            the secret content.
+          </small>
         </p>
+      </section>
+
+      <section>
+        <p>
+          If you are comfortable using <a href="https://gnupg.org/">GPG</A> to encrypt files, you
+          can download a
+          <a download href="./downloads/rich-wareham-public-keyring.gpg">keyring containing my
+          public keys</a>.
+        </p>
+      </section>
+    </main>
+
+    <footer class="container">
+      <div>&copy; <span id="this-year">2022</span> Rich Wareham</div>
+      <div>
+        <a href="https://github.com/rjw57/secrets-subsite/">
+          Source code
+        </a>
       </div>
-    </header>
-
-    <section class="container">
-      <div class="row gy-2 gx-4">
-        <div class="col-12 col-lg-6">
-          <h2 class="h5">Add secret content</h2>
-
-          <textarea
-            id="file-contents" name="contents" rows="8" cols="80"
-            placeholder="Paste secret content here."
-            class="form-control font-monospace mb-2"
-          ></textarea>
-        </div>
-        <div class="col-12 col-lg-6">
-          <h2 class="h5">Send me the encrypted result</h2>
-
-          <div class="clipboard-container">
-            <button
-              id="copy-result" type="button" disabled
-              class="btn btn-clipboard btn-primary btn-small"
-            >
-              Copy
-            </button>
-          </div>
-          <textarea
-            id="armoured-result" readonly name="result" rows="8" cols="80"
-            class="form-control font-monospace mb-2"
-            placeholder="The encrypted secret will appear here."
-          ></textarea>
-        </div>
+      <div>
+        <a
+          href="https://www.flaticon.com/free-icons/detective" title="detective icons"
+        >
+          Detective icons created by Freepik - Flaticon
+        </a>
       </div>
-
-      <p class="text-muted">
-        It is safe to send encrypted content over an insecure channel such as email, instant
-        messaging or Slack. Encryption happens entirely on your device; content is not sent over the
-        Internet. If you want to make sure of this, disable your network connection before adding
-        the secret content.
-      </p>
-
-      <div class="accordion" id="select-recipients-accordion">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="select-recipients-header">
-            <button
-              class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-              data-bs-target="#select-recipients" aria-expanded="false"
-              aria-controls="select-recipients"
-            >
-              Advanced users
-            </button>
-          </h2>
-
-          <div
-            id="select-recipients" class="accordion-collapse collapse"
-            aria-labelledby="select-recipients-header" data-bs-parent="#select-recipients-accordion"
-          >
-            <div class="accordion-body pb-0">
-              <h3 class="h5">Select recipient identities</h3>
-
-              <p>
-                Which identities should be able to decrypt this secret? If you're not sure, leave all of
-                them selected.
-              </p>
-              <select class="form-control" id="key-select" name="keys" multiple>
-              </select>
-              <p>
-                <small class="text-muted">
-                  Hint: use the Ctrl or Option key to select multiple recipients.
-                </small>
-              </p>
-              <div class="button-group">
-                <button id="key-select-all" type="button" class="btn btn-primary">Select all</button>
-                <button id="key-select-none" type="button" class="btn btn-secondary">Clear selection</button>
-              </div>
-
-              <h3 class="h5 mt-4">Download public keyring</h3>
-
-              <p>
-                If you are comfortable using <a href="https://gnupg.org/">GPG</A> to encrypt files, you
-                can always download a
-                <a download href="./downloads/rich-wareham-public-keyring.gpg">keyring containing my
-                public keys</a>.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <div class="border-top mt-4">
-      <div class="container">
-        <footer class="d-flex flex-wrap justify-content-between align-items-top py-2 mb-2">
-          <div class="col-auto text-muted mt-2">
-            <div>&copy; <span id="this-year">2022</span> Rich Wareham</div>
-            <div>
-              <a
-                href="https://www.flaticon.com/free-icons/detective" title="detective icons"
-                class="text-reset"
-              >
-                Detective icons created by Freepik - Flaticon
-              </a>
-            </div>
-          </div>
-          <ul class="nav col justify-content-end">
-            <li class="nav-item">
-              <a href="https://github.com/rjw57/secrets-subsite/" class="nav-link px-2 text-muted">
-                Source code
-              </a>
-            </li>
-          </ul>
-        </footer>
-      </div>
-    </div>
+    </footer>
 
     <div id="loading-overlay">
-      <div class="spinner-border text-light" role="status">
-        <span class="visually-hidden">Loading...</span>
-      </div>
+      <div aria-busy="true">Loading&hellip;</div>
 
-      <div id="problem-dialog" class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Something may have gone wrong</h5>
-          </div>
-          <div class="modal-body">
-            <strong>This application is taking an unusually long time to load.</strong> Make sure
-            your network connection is active and that you are using a modern web browser with
-            JavaScript enabled.
-          </div>
-        </div>
-      </div>
+      <dialog id="problem-dialog" open>
+        <article>
+          <header>
+            Something seems to have gone wrong
+          </header>
+          <p>
+            This application is taking an unusually long time to load. Make sure your network
+            connection is active and that you are using a modern web browser with JavaScript
+            enabled.
+          </p>
+        </article>
+      </dialog>
     </div>
 
-    <script src="vendor/bootstrap/bootstrap.bundle.min.js"></script>
     <script type="module">
       import { initialise } from "./js/encrypt.js";
       await initialise();

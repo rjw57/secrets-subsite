@@ -1,15 +1,32 @@
+.muted {
+  color: var(--muted-color);
+}
+
+/* Button groups. */
+.button-group {
+  display: flex;
+  gap: var(--spacing);
+}
+
+.button-group > button {
+  width: auto;
+}
+
 /* Copy to clipboard. */
 .clipboard-container {
   position: relative;
   float: right;
 }
 
-.btn-clipboard {
+.clipboard-container > .clipboard-button {
+  width: auto;
   position: absolute;
   top: 0.65rem;
   right: 0.65rem;
   z-index: 10;
   display: block;
+  font-size: 80%;
+  padding: calc(0.5 * var(--spacing));
 }
 
 /* Armoured result. */
@@ -19,7 +36,12 @@
 
 /* Footer text. */
 footer {
-  font-size: .9em;
+  font-size: 80%;
+  color: var(--muted-color);
+}
+
+footer a {
+  color: inherit;
 }
 
 /* Loading/error indicator. */
@@ -34,7 +56,7 @@ body.js-loaded > #loading-overlay {
   animation-delay: 1s;
   animation-fill-mode: both;
   animation-timing-function: ease-in;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--modal-overlay-background-color);
   position: fixed;
   left: 0;
   top: 0;
